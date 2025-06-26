@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id(); // PK BIGINT UNSIGNED AUTO_INCREMENT
-            $table->string('name'); // VARCHAR(255) NOT NULL
+            $table->string('name')->index(); // VARCHAR(255) NOT NULL
             $table->text('description')->nullable(); // TEXT NULLABLE
             $table->decimal('price', 8, 2); // DECIMAL(8, 2) NOT NULL
             $table->string('image_path')->nullable(); // VARCHAR(255) NULLABLE

@@ -18,7 +18,6 @@
     },
     "name": "mac-lanches",
     "version": "1.0.0",
-   
     "main": "vite.config.js",
     "directories": {
         "test": "tests"

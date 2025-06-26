@@ -1,23 +1,34 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $product->name }} - Detalhes</title>
-    @vite('resources/css/app.css')
-</head>
-<body class="bg-gray-100 font-sans antialiased">
-    <div class="container mx-auto p-6">
-        <a href="{{ route('products.index') }}" class="text-blue-500 hover:underline mb-4 inline-block">&larr; Voltar ao Cardápio</a>
+@extends('layouts.app')
 
-        <div class="bg-white rounded-lg shadow-md p-8 text-center">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ $product->name }}</h1>
-            <p class="text-gray-700 text-lg mb-6">{{ $product->description }}</p>
-            <span class="text-green-600 font-bold text-3xl">R$ {{ number_format($product->price, 2, ',', '.') }}</span>
-            <button class="mt-8 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300">
-                Adicionar ao Carrinho
-            </button>
-        </div>
+@section('title', $product->name . ' - Detalhes')
+
+@section('content')
+<main class="flex flex-col items-center justify-center text-center px-6">
+    {{-- Imagem do produto --}}
+    <div class="w-64 h-64 bg-gray-300 rounded-md mb-6 overflow-hidden">
+        @if($product->image_path)
+            <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}" class="object-cover w-full h-full rounded-md">
+        @endif
     </div>
-</body>
-</html>
+
+    {{-- Nome e preço --}}
+    <h1 class="text-sm font-semibold uppercase tracking-wide">{{ $product->name }}</h1>
+    <p class="text-sm font-medium mt-1 mb-4">R$ {{ number_format($product->price, 2, ',', '.') }}</p>
+
+    {{-- Descrição --}}
+    <p class="text-xs leading-relaxed max-w-xs text-[#371C15] mb-10">
+        {{ $product->description }}
+    </p>
+
+    {{-- Botões --}}
+    <div class="flex flex-col items-center space-y-4">
+        <button class="bg-[#F29C00] text-white text-xs font-bold py-3 px-8 rounded-md shadow-md hover:bg-yellow-500 transition">
+            ADICIONAR AO CARRINHO
+        </button>
+
+        <a href="{{ route('home') }}" class="bg-[#F29C00] text-white text-xs font-bold py-3 px-8 rounded-md shadow-md hover:bg-yellow-500 transition">
+            VOLTAR
+        </a>
+    </div>
+</main>
+@endsection
