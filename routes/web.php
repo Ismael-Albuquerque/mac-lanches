@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,22 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 
 /*
 |--------------------------------------------------------------------------
+| Carrinho e Checkout (Apenas Autenticados)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+    Route::get('/carrinho', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/carrinho/adicionar', [CartController::class, 'add'])->name('cart.add');
+
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+    Route::post('/cart/update/{productId}', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/remove/{productId}', [CartController::class, 'remove'])->name('cart.remove');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Área Administrativa (auth + is_admin)
 |--------------------------------------------------------------------------
 */
@@ -44,5 +62,4 @@ Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->prefix('admin'
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
 });
