@@ -23,4 +23,9 @@ class Product extends Model
     {
         return $query->where('is_available', true);
     }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
