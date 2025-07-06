@@ -50,20 +50,21 @@
             <div>
                 <p class="text-sm mb-1">Imagem atual:</p>
                 <img src="{{ asset('storage/' . $product->image_path) }}"
-                     alt="Imagem"
+                     alt="Imagem do produto"
                      class="w-32 h-32 object-cover mb-2 rounded border">
             </div>
         @endif
 
         {{-- Upload de nova imagem --}}
-        <input type="file" name="image" class="w-full">
+        <input type="file" name="image" accept="image/*" class="w-full">
 
         {{-- Disponibilidade --}}
         <label class="flex items-center space-x-2">
-            {{-- Campo oculto para garantir que false seja enviado se desmarcado --}}
             <input type="hidden" name="is_available" value="0">
-            <input type="checkbox" name="is_available" value="1"
-                   {{ old('is_available', $product->is_available) ? 'checked' : '' }}>
+            <input type="checkbox"
+                   name="is_available"
+                   value="1"
+                   {{ old('is_available', $product->is_available) == 1 ? 'checked' : '' }}>
             <span>Disponível para venda</span>
         </label>
 
